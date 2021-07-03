@@ -18,13 +18,13 @@ export default class UsersController {
 
     const user = await User.firstOrCreate(searchCriteria, data)
 
-    await user.related('profile').firstOrCreate(
-      {},
-      {
-        userId: user.id,
-      }
-    )
     if (user.$isLocal) {
+      await user.related('profile').firstOrCreate(
+        {},
+        {
+          userId: user.id,
+        }
+      )
       return response.status(201).json({
         message: 'Cadastrado com sucesso',
       })
