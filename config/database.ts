@@ -63,8 +63,16 @@ const databaseConfig: DatabaseConfig = {
 
     pg: {
       client: 'pg',
-      connection:
-        'postgres://huvqhgdsfhywnq:c97d9222ccfad70782d78d0db21dcc93fa6a0e191d53be0331c54e823ab41910@ec2-35-168-145-180.compute-1.amazonaws.com:5432/d4mtto88vusdc0',
+      connection: {
+        host: Env.get('PG_HOST'),
+        port: Env.get('PG_PORT'),
+        user: Env.get('PG_USER'),
+        password: Env.get('PG_PASSWORD', ''),
+        database: Env.get('PG_DB_NAME'),
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      },
       migrations: {
         naturalSort: true,
       },
