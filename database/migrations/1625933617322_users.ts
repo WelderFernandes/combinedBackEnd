@@ -8,6 +8,15 @@ export default class UsersSchema extends BaseSchema {
       table.increments('id').primary()
       table.string('email', 255).notNullable()
       table.string('password', 180).notNullable()
+      table.string('name').nullable()
+      table.string('avatar').nullable()
+      table.string('gender').nullable()
+      table.string('bio').nullable()
+      table.integer('address_id').unsigned().references('addresses.id').onDelete('CASCADE')
+      table.date('birthDate').nullable()
+      table.string('back_cover').nullable()
+      table.enum('type', ['PRO', 'NORMAL']).defaultTo('NORMAL').nullable()
+      table.enum('status', ['Active', 'Inactive']).defaultTo('Active').nullable()
       table.string('remember_me_token').nullable()
 
       /**
