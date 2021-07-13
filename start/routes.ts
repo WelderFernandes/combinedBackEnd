@@ -59,4 +59,22 @@ Route.group(() => {
       cast: (id) => Number(id),
     })
   }).prefix('/category')
+
+  Route.group(() => {
+    Route.post('create', 'AddressesController.create')
+    Route.get('all', 'AddressesController.index')
+    Route.get('/:id', 'AddressesController.show').where('id', {
+      match: /^[0-9]+$/,
+      cast: (id) => Number(id),
+    })
+    Route.put('/:id', 'AddressesController.update').where('id', {
+      match: /^[0-9]+$/,
+      cast: (id) => Number(id),
+    })
+
+    Route.delete('/:id', 'AddressesController.destroy').where('id', {
+      match: /^[0-9]+$/,
+      cast: (id) => Number(id),
+    })
+  }).prefix('/address')
 }).prefix('/api')
