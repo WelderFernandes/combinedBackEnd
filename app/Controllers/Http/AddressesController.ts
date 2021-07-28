@@ -1,6 +1,5 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Address from 'App/Models/Address'
-import Establishment from 'App/Models/Establishment'
 
 interface Iaddress {
   country: string
@@ -26,7 +25,7 @@ export default class AddressesController {
     return addresses.map((Address) => Address.toJSON())
   }
 
-  public async create({ request, response, auth }: HttpContextContract) {
+  public async create({ request, response }: HttpContextContract) {
     const data: Iaddress = request.only([
       'country',
       'state',
@@ -54,14 +53,6 @@ export default class AddressesController {
     const address = await Address.create(addressData)
 
     if (address.$isLocal) {
-      const searchCriteria = auth.user?.$attributes.id
-      const establishment = await Establishment.findByOrFail('user_id', searchCriteria)
-      console.log(establishment)
-
-      establishment.addressId = address.id
-
-      establishment.save()
-
       return response.json({
         message: 'Cadastrado com sucesso',
       })

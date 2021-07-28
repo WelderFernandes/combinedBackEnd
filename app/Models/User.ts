@@ -22,6 +22,12 @@ export default class User extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
+  @column()
+  public user_profile_id: number
+
+  @column()
+  public profileId: number
+
   @hasOne(() => Profile)
   public profile: HasOne<typeof Profile>
 
