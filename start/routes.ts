@@ -22,6 +22,7 @@ Route.group(() => {
       cast: (id) => Number(id),
     })
   }).prefix('/user')
+
   Route.post('login', 'LoginController.login')
 
   Route.group(() => {
@@ -76,5 +77,33 @@ Route.group(() => {
       match: /^[0-9]+$/,
       cast: (id) => Number(id),
     })
-  }).prefix('/address')
+  })
+    .middleware('auth')
+    .prefix('/address')
+
+  Route.group(() => {
+    Route.post('create', 'EstablishmentsController.create').middleware('auth')
+    Route.get('all', 'EstablishmentsController.index').middleware('auth')
+    Route.get('/:id', 'EstablishmentsController.show')
+      .where('id', {
+        match: /^[0-9]+$/,
+        cast: (id) => Number(id),
+      })
+      .middleware('auth')
+    Route.put('/:id', 'EstablishmentsController.update')
+      .where('id', {
+        match: /^[0-9]+$/,
+        cast: (id) => Number(id),
+      })
+      .middleware('auth')
+
+    Route.delete('/:id', 'EstablishmentsController.destroy')
+      .where('id', {
+        match: /^[0-9]+$/,
+        cast: (id) => Number(id),
+      })
+      .middleware('auth')
+  })
+    .middleware('auth')
+    .prefix('/establishment')
 }).prefix('/api')
